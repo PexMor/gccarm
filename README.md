@@ -13,3 +13,5 @@ Able to flash the firmware easily.
 No need to install.
 
 Takes about 600MB of disk unfortunately (Ubuntu and GCC-ARM toolchain).
+
+Automatic build upon git commit and regular on time base.
