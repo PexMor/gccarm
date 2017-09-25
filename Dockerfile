@@ -9,11 +9,21 @@ ENV LINES 24
 ENV TERM xterm-256color
 ENV PXL_VER GccArm
 
-ADD include/ /root/
+ENTRYPOINT [ "/opt/bin/loopForever" ]
 
+ADD src/ /root/src/
+
+ADD include/01-baseUpdateInstall.sh /root/
 RUN sh -C /root/01-baseUpdateInstall.sh 1>&2
+
+ADD include/02-addUser.sh /root/
 RUN sh -C /root/02-addUser.sh 1>&2
+
+ADD include/03-addSw.sh /root/
 RUN sh -C /root/03-addSw.sh 1>&2
+
+ADD include/04-cust.sh /root/
+RUN sh -C /root/04-cust.sh 1>&2
 
 ENV HOME /host
 WORKDIR /host

@@ -10,5 +10,4 @@ docker run \
     -h $DNAME \
     --name $DNAME \
     -v $DD:/host \
-    gccarm \
-    /bin/sh -c "while true; do date; sleep 30; done"
+    gccarm
