@@ -1,29 +1,22 @@
-FROM ubuntu:latest
-MAINTAINER Petr Moravek v1.0
+FROM ubuntu
+
+LABEL maintainer="Petr Moravek" name=gccarm version=1.0
 
 # Set correct environment variables.
-ENV container docker
-ENV COLUMNS 80
-ENV DEBIAN_FRONTEND noninteractive
-ENV LINES 24
-ENV TERM xterm-256color
-ENV PXL_VER GccArm
+ENV CONTAINER=docker \
+    PXL_NAME=gccarm \
+    COLUMNS=80 \
+    LINES=24 \
+    TERM=xterm-256color \
+    DEBIAN_FRONTEND=noninteractive
 
 ENTRYPOINT [ "/opt/bin/loopForever" ]
 
-ADD src/ /root/src/
+ADD src/ /root/src
 
-ADD include/01-baseUpdateInstall.sh /root/
-RUN sh -C /root/01-baseUpdateInstall.sh 1>&2
+ADD include/ /root/
 
-ADD include/02-addUser.sh /root/
-RUN sh -C /root/02-addUser.sh 1>&2
-
-ADD include/03-addSw.sh /root/
-RUN sh -C /root/03-addSw.sh 1>&2
-
-ADD include/04-cust.sh /root/
-RUN sh -C /root/04-cust.sh 1>&2
+RUN sh -C /root/runAll.sh 1>&2
 
 ENV HOME /host
 WORKDIR /host
